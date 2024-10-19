@@ -1,15 +1,14 @@
 const express = require("express");
-const mongoose = require("mongoose");
 require("dotenv").config();
 const connectDB = require("./config/db");
 
 const app = express();
+app.use(express.json());
+
+const inquiriesRouter = require("./routes/inquiries");
+app.use("/api/v1/inquiries", inquiriesRouter);
 
 const PORT = process.env.PORT || 4000;
-
-app.get("/", (req, res) => {
-  res.send("Hello World");
-});
 
 async function startServer() {
   try {
