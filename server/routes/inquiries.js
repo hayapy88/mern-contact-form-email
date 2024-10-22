@@ -1,5 +1,5 @@
 const express = require("express");
-const { createInquiry } = require("../controllers/inquiries");
+const { createInquiry } = require("../controllers/inquiryController");
 const router = express.Router();
 
 // Post /inquiry
