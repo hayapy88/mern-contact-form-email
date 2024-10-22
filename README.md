@@ -59,9 +59,20 @@ npm run dev
 
 Backend: The backend will be running on http://localhost:4000 (or whichever port you set).
 
-# API's
+# API Endpoints
 
-GET /api/v1/inquiries/ - Create an inquiry
+GET /api/v1/inquiries/ - Create an inquiry and send an Email
+
+---
+
+You can post a request with the following three values.
+'''
+{
+"name": "Your Test Name",
+"email": "youremail@test.com",
+"message": "Hi, this is a test email."
+}
+'''
 
 # Future Improvements
 
