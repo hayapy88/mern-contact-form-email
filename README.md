@@ -66,13 +66,14 @@ GET /api/v1/inquiries/ - Create an inquiry and send an Email
 ---
 
 You can post a request with the following three values.
-'''
+
+```
 {
-"name": "Your Test Name",
-"email": "youremail@test.com",
-"message": "Hi, this is a test email."
+  "name": "Your Test Name",
+  "email": "youremail@test.com",
+  "message": "Hi, this is a test email."
 }
-'''
+```
 
 # Future Improvements
 
