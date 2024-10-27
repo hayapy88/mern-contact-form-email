@@ -18,14 +18,14 @@ const ContactForm = () => {
     });
   }
 
-  const handleSubmit = async (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
     try {
       await axios.post("/api/v1/inquiries", formData);
     } catch (error) {
       console.error("Error submitting form:", error);
     }
-  };
+  }
 
   return (
     <div className="container max-w-2xl p-4">
