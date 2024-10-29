@@ -37,7 +37,7 @@ const ContactForm = () => {
           </label>
           <input
             id="name"
-            className="border border-solid border-gray-300 rounded-sm"
+            className="py-1 px-2 border border-solid border-gray-300 rounded-sm"
             type="text"
             name="name"
             value={formData.name}
@@ -50,7 +50,7 @@ const ContactForm = () => {
           </label>
           <input
             id="email"
-            className="border border-solid border-gray-300 rounded-sm"
+            className="py-1 px-2 border border-solid border-gray-300 rounded-sm"
             type="text"
             name="email"
             value={formData.email}
@@ -63,7 +63,7 @@ const ContactForm = () => {
           </label>
           <textarea
             id="message"
-            className="border border-solid border-gray-300 rounded-sm"
+            className="py-1 px-2 border border-solid border-gray-300 rounded-sm"
             name="message"
             value={formData.message}
             onChange={handleChange}
