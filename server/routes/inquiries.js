@@ -11,7 +11,7 @@ const validateInquiry = [
     .notEmpty()
     .withMessage("Email is required")
     .isEmail()
-    .withMessage("Please provide a valid email"),
+    .withMessage("Please enter a valid email"),
   body("message").trim().notEmpty().withMessage("Message is required"),
 ];
 

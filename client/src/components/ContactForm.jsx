@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
+import validationMessages from "../validation/validationMessages";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -7,6 +8,22 @@ const ContactForm = () => {
     email: "",
     message: "",
   });
+  const [errors, setErrors] = useState({});
+
+  const validateField = (fieldName, value) => {
+    switch (fieldName) {
+      case "name":
+        return !value.trim() ? validationMessages.nameRequired : "";
+      case "email":
+        if (!value.trim()) return validationMessages.emailRequired;
+        if (!/\S+@\S+\.\S+/.test(value)) return validationMessages.emailInvalid;
+        return "";
+      case "message":
+        return !value.trim() ? validationMessages.messageRequired : "";
+      default:
+        return "";
+    }
+  };
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -16,16 +33,47 @@ const ContactForm = () => {
         [name]: value,
       };
     });
+    setErrors({ ...errors, [name]: validateField(name, value) });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       await axios.post("/api/v1/inquiries", formData);
+      console.log("Form submitted successfully");
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
     } catch (error) {
       console.error("Error submitting form:", error);
+      if (error.response) {
+        // Handle validation error messages
+        const errorMessages = error.response.data.errors.reduce((acc, curr) => {
+          if (
+            curr.path === "email" &&
+            curr.msg === "Please enter a valid email"
+          ) {
+            acc.email = formData.email
+              ? curr.msg
+              : validationMessages.emailRequired;
+          } else {
+            acc[curr.path] = curr.msg;
+          }
+          return acc;
+        }, {});
+        setErrors(errorMessages);
+      }
     }
   }
+
+  // Log validation errors to the console
+  useEffect(() => {
+    if (errors) {
+      console.log("Validation errors:", errors);
+    }
+  }, [errors]);
 
   return (
     <div className="container max-w-2xl p-4">
@@ -43,6 +91,7 @@ const ContactForm = () => {
             value={formData.name}
             onChange={handleChange}
           />
+          {errors.name && <p className="text-red-500">{errors.name}</p>}
         </div>
         <div className="flex flex-col">
           <label htmlFor="email" className="mt-2">
@@ -56,6 +105,7 @@ const ContactForm = () => {
             value={formData.email}
             onChange={handleChange}
           />
+          {errors.email && <p className="text-red-500">{errors.email}</p>}
         </div>
         <div className="flex flex-col">
           <label htmlFor="message" className="mt-2">
@@ -68,6 +118,7 @@ const ContactForm = () => {
             value={formData.message}
             onChange={handleChange}
           ></textarea>
+          {errors.message && <p className="text-red-500">{errors.message}</p>}
         </div>
         <button
           className="bg-blue-500 text-white rounded-sm mt-4 px-4 py-2"
