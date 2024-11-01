@@ -28,6 +28,7 @@ router.post(
         errors: errors.array(),
       });
     }
+    console.log("Validation passed");
     next();
   },
   createInquiry
