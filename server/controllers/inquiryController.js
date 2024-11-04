@@ -14,14 +14,12 @@ const createInquiry = async (req, res) => {
     const emailResult = await sendEmail(email, subject, html);
 
     if (emailResult.success) {
-      console.log("Email sent successfully");
       res.status(201).json({
         status: "success",
         message: "Your inquiry was created successfully and email sent",
         inquiry: inquiry,
       });
     } else {
-      console.log("Email failed to send");
       res.status(500).json({
         status: "failed",
         message:
