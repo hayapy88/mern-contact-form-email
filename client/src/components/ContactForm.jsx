@@ -38,16 +38,30 @@ const ContactForm = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
+
+    // Validate all fields before submitting the form
+    const newErrors = {};
+    Object.keys(formData).forEach((field) => {
+      const error = validateField(field, formData[field]);
+      if (error) {
+        newErrors[field] = error;
+      }
+    });
+    // If there are errors, set errors and return
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
+    // If there are no errors, send the form data to the server
     try {
       await axios.post("/api/v1/inquiries", formData);
-      console.log("Form submitted successfully");
       setFormData({
         name: "",
         email: "",
         message: "",
       });
     } catch (error) {
-      console.error("Error submitting form:", error);
       if (error.response) {
         // Handle validation error messages
         const errorMessages = error.response.data.errors.reduce((acc, curr) => {
@@ -69,11 +83,11 @@ const ContactForm = () => {
   }
 
   // Log validation errors to the console
-  useEffect(() => {
-    if (errors) {
-      console.log("Validation errors:", errors);
-    }
-  }, [errors]);
+  // useEffect(() => {
+  //   if (errors) {
+  //     console.log("Validation errors:", errors);
+  //   }
+  // }, [errors]);
 
   return (
     <div className="container max-w-2xl p-4">

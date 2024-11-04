@@ -11,18 +11,29 @@ const createInquiry = async (req, res) => {
 
     const subject = "Thank you for your inquiry test submission";
     const html = `<p style="color: black !important;">Hi ${name},<br><br>Thank you for testing the inquiry form.<br>I have received your inquiry as follows:<br>-----<br>${message}<br><br>Kind regards,<br>Hayato</p>`;
-    sendEmail(email, subject, html);
+    const emailResult = await sendEmail(email, subject, html);
 
-    res.status(201).json({
-      status: "success",
-      message: "Your inquiry was created successfully",
-      inquiry: inquiry,
-    });
+    if (emailResult.success) {
+      console.log("Email sent successfully");
+      res.status(201).json({
+        status: "success",
+        message: "Your inquiry was created successfully and email sent",
+        inquiry: inquiry,
+      });
+    } else {
+      console.log("Email failed to send");
+      res.status(500).json({
+        status: "failed",
+        message:
+          "Your inquiry was created successfully but failed to send email",
+        inquiry: inquiry,
+      });
+    }
   } catch (error) {
-    console.error("Error saving to database:", error.message);
+    console.error("Error saving to database or sending email:", error.message);
     res.status(500).json({
       status: "failed",
-      message: "Failed to create inquiry",
+      message: "Failed to create inquiry or send email",
       error: error.message,
     });
   }

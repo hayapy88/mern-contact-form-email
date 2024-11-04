@@ -1,3 +1,4 @@
+const { stat } = require("fs");
 const nodemailer = require("nodemailer");
 
 const sendEmail = async (to, subject, html) => {
@@ -27,11 +28,10 @@ const sendEmail = async (to, subject, html) => {
     console.log("Email sent to Customer successfully");
     await transporter.sendMail(mailToAdmin);
     console.log("Email sent to Admin successfully");
-    res.status(200).json({ message: "Email sent successfully" });
+    return { success: true, message: "Email sent successfully" };
   } catch (error) {
     console.error("Failed to send email:", error);
-    res.status(500).json({ error: "Failed to send email" });
-    throw new Error("Failed to send email");
+    return { success: false, error: "Failed to send email" };
   }
 };
 
