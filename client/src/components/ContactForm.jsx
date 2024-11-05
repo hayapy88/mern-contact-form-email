@@ -10,6 +10,7 @@ const ContactForm = () => {
   });
   const [errors, setErrors] = useState({});
 
+  // Validate each field based on the field name
   const validateField = (fieldName, value) => {
     switch (fieldName) {
       case "name":
@@ -25,6 +26,7 @@ const ContactForm = () => {
     }
   };
 
+  // Handle form field changes
   function handleChange(e) {
     const { name, value } = e.target;
     setFormData((prevData) => {
@@ -36,6 +38,7 @@ const ContactForm = () => {
     setErrors({ ...errors, [name]: validateField(name, value) });
   }
 
+  // Handle form submission
   async function handleSubmit(e) {
     e.preventDefault();
 
