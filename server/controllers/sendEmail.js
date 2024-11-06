@@ -1,6 +1,6 @@
-const { stat } = require("fs");
 const nodemailer = require("nodemailer");
 
+// Send email using Gmail
 const sendEmail = async (to, subject, html) => {
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -10,6 +10,7 @@ const sendEmail = async (to, subject, html) => {
     },
   });
 
+  // Email options
   const mailToCustomer = {
     from: process.env.GMAIL_EMAIL,
     to: to,
@@ -23,6 +24,7 @@ const sendEmail = async (to, subject, html) => {
     html: html,
   };
 
+  // Send email to customer and admin
   try {
     await transporter.sendMail(mailToCustomer);
     console.log("Email sent to Customer successfully");

@@ -1,6 +1,7 @@
 const Inquiry = require("../models/Inquiry");
 const sendEmail = require("./sendEmail");
 
+// Create a new inquiry
 const createInquiry = async (req, res) => {
   try {
     const { name, email, message } = req.body;
