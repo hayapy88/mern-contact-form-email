@@ -93,7 +93,10 @@ const ContactForm = () => {
   // }, [errors]);
 
   return (
-    <div className="container max-w-2xl p-4">
+    <div className="container relative max-w-2xl p-4">
+      <div className="absolute left-1/2 -translate-x-1/2 py-2 px-4 rounded bg-green-500 text-white">
+        <p>Message</p>
+      </div>
       <h1 className="text-2xl">Contact form for sending Email</h1>
       <form>
         <div className="flex flex-col">
