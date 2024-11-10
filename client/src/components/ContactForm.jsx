@@ -58,7 +58,10 @@ const ContactForm = () => {
 
     // If there are no errors, send the form data to the server
     try {
+      // Send form data to the server
       await axios.post("/api/v1/inquiries", formData);
+
+      // Reset form data
       setFormData({
         name: "",
         email: "",
