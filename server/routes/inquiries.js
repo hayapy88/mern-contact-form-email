@@ -15,7 +15,9 @@ const validateInquiry = [
   body("message").trim().notEmpty().withMessage("Message is required"),
 ];
 
-// Post /inquiry
+// POST /inquiries
+// 1. Validate the request body
+// 2. Create a new inquiry
 router.post(
   "/",
   validateInquiry,
