@@ -9,6 +9,8 @@ const ContactForm = () => {
     message: "",
   });
   const [errors, setErrors] = useState({});
+  const [resultMessage, setResultMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // success or error
 
   // Validate each field based on the field name
   const validateField = (fieldName, value) => {
@@ -59,7 +61,9 @@ const ContactForm = () => {
     // If there are no errors, send the form data to the server
     try {
       // Send form data to the server
-      await axios.post("/api/v1/inquiries", formData);
+      const response = await axios.post("/api/v1/inquiries", formData);
+      console.log("Server response:", response.data.message);
+      setResultMessage(response.data.message);
 
       // Reset form data
       setFormData({
@@ -68,7 +72,14 @@ const ContactForm = () => {
         message: "",
       });
     } catch (error) {
-      if (error.response) {
+      if (
+        error.response &&
+        error.response.data &&
+        error.response.data.message
+      ) {
+        console.error("Server error:", error.response.data.message);
+        setResultMessage(error.response.data.message);
+        setMessageType("error");
         // Handle validation error messages
         const errorMessages = error.response.data.errors.reduce((acc, curr) => {
           if (
@@ -84,6 +95,10 @@ const ContactForm = () => {
           return acc;
         }, {});
         setErrors(errorMessages);
+      } else {
+        console.error("Error sending data to server:", error.message);
+        setResultMessage("An unexpected error occurred. Please try again.");
+        setMessageType("error");
       }
     }
   }
@@ -98,7 +113,7 @@ const ContactForm = () => {
   return (
     <div className="container relative max-w-2xl p-4">
       <div className="absolute left-1/2 -translate-x-1/2 py-2 px-4 rounded bg-green-500 text-white">
-        <p>Message</p>
+        <p>{resultMessage}</p>
       </div>
       <h1 className="text-2xl">Contact form for sending Email</h1>
       <form>
