@@ -11,6 +11,7 @@ const ContactForm = () => {
   const [errors, setErrors] = useState({});
   const [resultMessage, setResultMessage] = useState("");
   const [messageType, setMessageType] = useState(""); // success or error
+  const [showMessage, setShowMessage] = useState(false);
 
   // Validate each field based on the field name
   const validateField = (fieldName, value) => {
@@ -64,6 +65,7 @@ const ContactForm = () => {
       const response = await axios.post("/api/v1/inquiries", formData);
       console.log("Server response:", response.data.message);
       setResultMessage(response.data.message);
+      setMessageType("success");
 
       // Reset form data
       setFormData({
@@ -77,6 +79,7 @@ const ContactForm = () => {
         error.response.data &&
         error.response.data.message
       ) {
+        console.error("Full server error:", error.response);
         console.error("Server error:", error.response.data.message);
         setResultMessage(error.response.data.message);
         setMessageType("error");
@@ -110,9 +113,24 @@ const ContactForm = () => {
   //   }
   // }, [errors]);
 
+  // Show the result message for 3 seconds
+  useEffect(() => {
+    if (resultMessage) {
+      setShowMessage(true);
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [resultMessage]);
+
   return (
     <div className="container relative max-w-2xl p-4">
-      <div className="absolute left-1/2 -translate-x-1/2 py-2 px-4 rounded bg-green-500 text-white">
+      <div
+        className={`absolute left-1/2 -translate-y-16 -translate-x-1/2 py-2 px-4 rounded ${
+          messageType === "success" ? "bg-green-500" : "bg-red-500"
+        } text-white message-box ${showMessage ? "show" : ""}`}
+      >
         <p>{resultMessage}</p>
       </div>
       <h1 className="text-2xl">Contact form for sending Email</h1>
