@@ -127,7 +127,7 @@ const ContactForm = () => {
   return (
     <div className="container relative max-w-2xl p-4">
       <div
-        className={`absolute left-1/2 -translate-y-16 -translate-x-1/2 py-2 px-4 rounded ${
+        className={`py-2 px-4 rounded ${
           messageType === "success" ? "bg-green-500" : "bg-red-500"
         } text-white message-box ${showMessage ? "show" : ""}`}
       >
