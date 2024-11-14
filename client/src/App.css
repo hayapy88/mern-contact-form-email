@@ -1,3 +1,9 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
 .message-box {
   position: fixed;
   top: -80px;
@@ -8,4 +14,13 @@
 
 .message-box.show {
   top: 20px;
+}
+
+.loading,
+.overlay {
+  display: none;
+}
+.loading.show,
+.overlay.show {
+  display: block;
 }
