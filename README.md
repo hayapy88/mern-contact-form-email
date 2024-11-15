@@ -4,19 +4,21 @@ MERN Contact Form Email
 
 # Description
 
-A full-stack Sending Email functionality using Node.js, Express.js, MongoDB, and Nodemailer for now.
-The next step is to create a frontend using React.
+A full-stack Sending Email functionality using Node.js, Express.js, MongoDB, and Nodemailer.
 
 # Live Demo
 
-Plan to launch after creating frontend
+Not deployed yet
 
 # Features
 
-- Can try this by Postman for now
+- Send contact form with Name, Email, and Message
+- Sended data will sent to your Email address for confirmation
+- Data will be stored on MongoDB
 
 # Tech Stack
 
+- Frontend: React, Tailwind CSS
 - Backend: Node.js, Express.js
 - Other: Nodemailer
 - Database: MongoDB
@@ -33,9 +35,9 @@ git clone https://github.com/hayapy88/mern-contact-form-email
 2. Navigate to the project directory and install dependencies for both the frontend and backend:
 
 ```
-<!-- cd client -->
-<!-- npm install -->
-<!-- cd ../server -->
+cd client
+npm install
+cd ../server
 cd server
 npm install
 ```
@@ -49,8 +51,8 @@ npm install
 4. Start the frontend and backend (Backend only for now):
 
 ```
-<!-- cd client -->
-<!-- npm start -->
+cd client
+npm start
 cd ../server
 npm run dev
 ```
@@ -77,7 +79,7 @@ You can post a request with the following three values.
 
 # Future Improvements
 
-- Create frontend
+- Deploy
 
 # Contact Information
 
