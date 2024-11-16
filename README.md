@@ -44,9 +44,10 @@ npm install
 
 3. Create a .env file in the server root directory with the following environment variables:
    MONGODB_URI=MongoDB-connection-string  
-   PORT=4000(or-any-port-you-prefer)  
-   GMAIL_EMAIL=Your-gmail-address(When-gmail)  
-   GMAIL_PASSWORD=Your-app-passwords(When-gmail)
+   PORT=4000 (or any port you prefer)  
+   GMAIL_EMAIL=Your-gmail-address (used when sending emails through Gmail's SMTP service)  
+   GMAIL_PASSWORD=Your-app-passwords (required for secure email sending via Gmail)  
+   ADMIN_EMAIL=Your-Email-address (receive the inquiry as the admin)
 
 4. Start the frontend and backend (Backend only for now):
 
@@ -63,7 +64,7 @@ Backend: The backend will be running on http://localhost:4000 (or whichever port
 
 # API Endpoints
 
-GET /api/v1/inquiries/ - Create an inquiry and send an Email
+GET /api/v1/inquiries/ - Create an inquiry and send notification Emails
 
 ---
 
