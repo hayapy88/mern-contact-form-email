@@ -140,6 +140,10 @@ const ContactForm = () => {
           <p>{resultMessage}</p>
         </div>
         <h1 className="text-2xl">Contact form for sending Email</h1>
+        <p className="mt-2">
+          You can send inquiry freely. After sending inquiry, you will receive
+          the notification email.
+        </p>
         <form>
           <div className="flex flex-col">
             <label htmlFor="name" className="mt-2">
